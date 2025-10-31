@@ -1,16 +1,14 @@
 # Dependencies
-node_modules/
 */node_modules/
-frontend/node_modules/
-backend/node_modules/
 
+# temp
+*/tmp/
 # Environment variables
 .env
 */.env
 
-# Build files
-frontend/dist/
-frontend/build/
-
 # OS files
 .DS_Store
+
+# temporary uploaded and generated files
+server/tmp/
