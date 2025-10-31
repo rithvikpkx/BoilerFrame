@@ -1,0 +1,23 @@
+:root{--bg:#f7f7f8;--card:#ffffff;--muted:#6b7280;--accent:#111827}
+*{box-sizing:border-box}
+body{font-family:Inter,system-ui,Arial,Helvetica,sans-serif;background:var(--bg);color:var(--accent);margin:0}
+.app{min-height:100vh;display:flex;flex-direction:column}
+.header{font-weight:700;font-size:28px;padding:48px 24px;text-align:center}
+.main{display:flex;justify-content:center;align-items:flex-start;padding:12px}
+.card{background:var(--card);border-radius:12px;padding:24px;box-shadow:0 6px 18px rgba(16,24,40,0.06);width:420px}
+.field{display:block;margin-bottom:12px}
+.field input{display:block;margin-top:8px}
+.actions{margin-top:12px}
+.btn{background:#111827;color:#fff;padding:10px 14px;border-radius:8px;border:0}
+.msg{margin-top:10px;color:var(--muted)}
+.results-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px}
+.result img{width:100%;height:auto;border-radius:8px}
+.link{background:none;border:0;color:#111827;cursor:pointer;margin-bottom:8px}
+
+/* Spinner and progress */
+.spinner{width:18px;height:18px;border-radius:50%;border:3px solid rgba(0,0,0,0.08);border-top-color:#111827;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.progress-indeterminate{height:8px;border-radius:8px;background:linear-gradient(90deg,#e6e9ef 25%, #cbd5e1 50%, #e6e9ef 75%);background-size:200% 100%;animation:progress 1.6s linear infinite}
+@keyframes progress{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
