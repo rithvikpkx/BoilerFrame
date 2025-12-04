@@ -19,15 +19,12 @@ export default function App() {
             <div className="brand-sub">Face-aware video search</div>
           </div>
         </div>
-        <div className="header-actions">
-          <span className="pill pill-ghost">Live dev build</span>
-        </div>
       </header>
       <main className="main shell">
         <section className="hero">
           <div>
             <p className="eyebrow">Precision frame finder</p>
-            <h1>Find every moment a person appears — instantly.</h1>
+            <h1>Pinpoint appearances across every frame.</h1>
             <p className="lede">Upload a video and a few reference shots. BoilerFrame pinpoints frames, similarity scores, and timestamps with AWS Rekognition.</p>
             <div className="hero-steps">
               <span className="pill">1. Upload video</span>

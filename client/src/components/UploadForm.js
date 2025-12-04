@@ -44,7 +44,6 @@ export default function UploadForm({ onStart, onComplete }) {
       <div className="panel-heading">
         <p className="eyebrow">Upload &amp; search</p>
         <h3>Find a person in video</h3>
-        <p className="muted">Drop in an MP4 and a few reference photos. We will handle S3 upload, Rekognition, and frame extraction for you.</p>
       </div>
 
       <div className="field">
