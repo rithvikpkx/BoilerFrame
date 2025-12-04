@@ -1,14 +1,30 @@
 # BoilerFrame
-My [LaunchPad Purdue](https://launchpadpurdue.com/) Project
 
-## Description
-Have you ever had to waste hours looking for someone in a long video? Let BoilerFrame find the exact timestamps and frames where they were shown! 
+BoilerFrame is a minimal MERN demo app that lets users upload a video and photos of a target person, then uses AWS Rekognition to find timestamps and frames where that person appears.
 
-BoilerFrame is simple. All it takes is a video file and pictures of the target as input, and it finds the timestamps and exact frames where the target appears in the video.
+This repository contains two folders: `server` and `client`.
 
-The main reason I chose to develop this project at LaunchPad Purdue is because of my eagerness to learn web development. Being able to make my own web application and deploying it to the internet was always a goal of mine, and when I got accepted into LaunchPad Purdue I knew that this was the perfect oppurtunity to get started.
+Quick dev flow
+- Prepare AWS credentials and an S3 bucket (see `server/aws-cli` helper for CLI artifacts and `server/README.md` for details).
+- Install Docker and Docker Compose (optional but recommended for a consistent local environment).
+- Use the helper script below to start the development environment.
 
-## Project Architecture
+Files and folders
+- `server/` — Express server, worker, Dockerfile, and AWS helper scripts.
+- `client/` — React frontend.
+- `docker-compose.yml` — starts MongoDB, server and worker for local dev.
 
-This project uses the MERN tech stack for the web app and the AWS Rekognition API for facial analysis of the videos.
+See `server/README.md` for the worker and AWS specifics and `client/README.md` for client instructions.
+
+Start locally (one-liner)
+1. Ensure you have Docker and Docker Compose installed.
+2. Copy `.env.example` at repo root to `.env` and fill the AWS variables, or export them in your shell.
+
+```bash
+# from repo root
+chmod +x start-dev.sh
+./start-dev.sh
+```
+
+Note: I cannot run these commands from here. The `start-dev.sh` script (added to the repo) will check basic preconditions and start Docker Compose. Review the script before running.
 

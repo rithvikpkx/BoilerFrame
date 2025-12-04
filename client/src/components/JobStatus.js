@@ -69,46 +69,87 @@ export default function JobStatus({ jobId, onComplete, onBack }) {
     return s;
   };
 
+  const steps = [
+    { key: 'started', label: 'Queued & uploading' },
+    { key: 'processing', label: 'Indexing & searching' },
+    { key: 'succeeded', label: 'Frames extracted' }
+  ];
+  const activeIndex = (() => {
+    if (status === 'succeeded') return 2;
+    if (status === 'failed') return 1;
+    if (status === 'processing' || status === 'IN_PROGRESS') return 1;
+    if (status === 'started') return 0;
+    return 0;
+  })();
+
   return (
-    <div className="card">
-      <h2>Job status</h2>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <button className="link" onClick={onBack}>← Back</button>
-        <div style={{ fontSize: 12, color: '#6b7280' }}>Elapsed: {elapsedSec}s • Attempts: {attempts}</div>
+    <div className="panel">
+      <div className="panel-heading">
+        <div className="panel-actions">
+          <button className="btn-ghost" onClick={onBack}>← Back</button>
+          <span className="pill pill-ghost">Job ID {jobId}</span>
+        </div>
+        <h3>Job status</h3>
+        <p className="muted">We’re syncing to S3, running Rekognition, and extracting frames. Keep this tab open — results stream in live.</p>
       </div>
 
-      <div style={{ marginTop: 12 }}>
-        <strong>Job ID:</strong> {jobId}
-      </div>
-
-      <div style={{ marginTop: 8, display: 'flex', alignItems: 'center', gap: 12 }}>
-        <div style={{ minWidth: 20 }}>
+      <div className="status-row">
+        <div className="status-icon">
           {status !== 'succeeded' && status !== 'failed' ? (
             <div className="spinner" aria-hidden="true" />
-          ) : null}
+          ) : (
+            <div className={`status-dot ${status === 'succeeded' ? 'ok' : 'warn'}`} />
+          )}
         </div>
         <div>
-          <div style={{ fontWeight: 600 }}>{friendlyStatus(status)}</div>
-          {error && <div className="msg" style={{ marginTop: 6 }}>Error: {error}</div>}
+          <div className="status-title">{friendlyStatus(status)}</div>
+          <div className="status-meta">Elapsed {elapsedSec}s • Attempts {attempts} • Poll {Math.max(1, (delayMs/1000).toFixed(0))}s</div>
+          {error && <div className="msg">Error: {error}</div>}
         </div>
+      </div>
+
+      <div className="timeline">
+        {steps.map((step, idx) => (
+          <div key={step.key} className={`timeline-step ${idx <= activeIndex ? 'active' : ''}`}>
+            <div className="timeline-marker" />
+            <div>
+              <div className="timeline-label">{step.label}</div>
+              <div className="timeline-sub">
+                {idx === 0 && 'Uploading assets & creating Rekognition collection'}
+                {idx === 1 && 'Indexing faces and scanning video'}
+                {idx === 2 && 'Storing frames & similarity scores'}
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
 
       {(status !== 'succeeded' && status !== 'failed') && (
-        <div style={{ marginTop: 12 }}>
-          <div className="progress-indeterminate" />
-          <div style={{ marginTop: 8, fontSize: 12, color: '#6b7280' }}>Polling every {(delayMs/1000).toFixed(0)}s</div>
+        <div className="progress">
+          <div className="progress-bar" />
         </div>
       )}
 
       {results.length > 0 && (
-        <div className="results-grid" style={{ marginTop: 12 }}>
-          {results.map((r, idx) => (
-            <div key={idx} className="result">
-              <img src={r.s3FrameUrl} alt={`frame-${idx}`} />
-              <div>Time: {(r.timestampMs/1000).toFixed(1)}s</div>
-              <div>Similarity: {r.similarity?.toFixed(1) ?? '—'}</div>
+        <div className="panel-sub">
+          <div className="panel-sub-header">
+            <div>
+              <p className="eyebrow small">Live matches</p>
+              <div className="status-title">{results.length} frame{results.length === 1 ? '' : 's'} matched so far</div>
             </div>
-          ))}
+            <span className="pill">{(elapsedMs/1000).toFixed(1)}s total</span>
+          </div>
+          <div className="results-grid dense">
+            {results.map((r, idx) => (
+              <div key={idx} className="result">
+                <img src={r.s3FrameUrl} alt={`frame-${idx}`} />
+                <div className="result-meta">
+                  <span>{(r.timestampMs/1000).toFixed(1)}s</span>
+                  <span className="pill small">Sim {r.similarity?.toFixed(1) ?? '—'}%</span>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>

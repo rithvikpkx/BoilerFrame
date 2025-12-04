@@ -40,17 +40,66 @@ export default function UploadForm({ onStart, onComplete }) {
   };
 
   return (
-    <form className="card" onSubmit={submit}>
-      <h2>Find a person in video</h2>
-      <label className="field">Video (MP4)
-        <input type="file" accept="video/*" onChange={e => setVideo(e.target.files[0])} />
-      </label>
-      <label className="field">Target photos (one or more)
-        <input type="file" accept="image/*" multiple onChange={e => setPhotos(Array.from(e.target.files))} />
-      </label>
-      <div className="actions">
-        <button type="submit" className="btn" disabled={loading}>{loading ? 'Searching...' : 'Search'}</button>
+    <form className="panel form" onSubmit={submit}>
+      <div className="panel-heading">
+        <p className="eyebrow">Upload &amp; search</p>
+        <h3>Find a person in video</h3>
+        <p className="muted">Drop in an MP4 and a few reference photos. We will handle S3 upload, Rekognition, and frame extraction for you.</p>
       </div>
+
+      <div className="field">
+        <div className="field-top">
+          <span>Video (MP4)</span>
+          <span className="hint">Max a few hundred MB for faster testing</span>
+        </div>
+        <label className="dropzone">
+          <div className="drop-icon">MP4</div>
+          <div>
+            <div className="drop-title">{video ? 'Replace video' : 'Drag & drop or browse'}</div>
+            <div className="drop-sub">High-quality works best. MP4 recommended.</div>
+          </div>
+          <input className="file-input" type="file" accept="video/*" onChange={e => setVideo(e.target.files[0])} />
+        </label>
+        {video && (
+          <div className="chip-row">
+            <span className="chip">{video.name}</span>
+          </div>
+        )}
+      </div>
+
+      <div className="field">
+        <div className="field-top">
+          <span>Target photos (one or more)</span>
+          <span className="hint">Close-up, well-lit faces work best</span>
+        </div>
+        <label className="dropzone">
+          <div className="drop-icon">IMG</div>
+          <div>
+            <div className="drop-title">{photos.length ? 'Add more photos' : 'Drag & drop or browse'}</div>
+            <div className="drop-sub">Select several angles to improve recall.</div>
+          </div>
+          <input className="file-input" type="file" accept="image/*" multiple onChange={e => setPhotos(Array.from(e.target.files))} />
+        </label>
+        {photos.length > 0 && (
+          <div className="chip-row">
+            {photos.map((p) => (
+              <span key={p.name} className="chip subtle">{p.name}</span>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div className="actions">
+        <button type="submit" className="btn" disabled={loading}>
+          <span>{loading ? 'Searching…' : 'Start search'}</span>
+          {!loading && <span className="btn-glow" aria-hidden="true" />}
+        </button>
+        <div className="actions-meta">
+          <span className="pill pill-ghost">Cloud-powered</span>
+          <span className="pill pill-ghost">Secure uploads</span>
+        </div>
+      </div>
+
       {message && <div className="msg">{message}</div>}
     </form>
   );
