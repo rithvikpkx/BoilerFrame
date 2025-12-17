@@ -12,12 +12,15 @@ Files and folders
 
 `
 // Start up the server
+
 server $ npm install && npm run dev
 
 // Start the worker program to handle search jobs
+
 server $ node worker/processJobs.js
 
 // Start up the client
+
 client $ npm start
 `
 
