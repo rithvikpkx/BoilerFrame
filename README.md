@@ -1,30 +1,26 @@
 # BoilerFrame
 
-BoilerFrame is a minimal MERN demo app that lets users upload a video and photos of a target person, then uses AWS Rekognition to find timestamps and frames where that person appears.
+## Description
+BoilerFrame is a simple webapp that lets users upload a video and photos of a target person, then uses AWS Rekognition to find timestamps and frames where that person appears.
 
-This repository contains two folders: `server` and `client`.
-
-Quick dev flow
-- Prepare AWS credentials and an S3 bucket (see `server/aws-cli` helper for CLI artifacts and `server/README.md` for details).
-- Install Docker and Docker Compose (optional but recommended for a consistent local environment).
-- Use the helper script below to start the development environment.
+## Running
+Note: For simple testing purposes this can be easily run on localhost. I haven't hosted this on the web.
 
 Files and folders
-- `server/` — Express server, worker, Dockerfile, and AWS helper scripts.
-- `client/` — React frontend.
-- `docker-compose.yml` — starts MongoDB, server and worker for local dev.
+- `server/` — Express server and worker
+- `client/` — React frontend
 
-See `server/README.md` for the worker and AWS specifics and `client/README.md` for client instructions.
+`
+// Start up the server
+server $ npm install && npm run dev
 
-Start locally (one-liner)
-1. Ensure you have Docker and Docker Compose installed.
-2. Copy `.env.example` at repo root to `.env` and fill the AWS variables, or export them in your shell.
+// Start the worker program to handle search jobs
+server $ node worker/processJobs.js
 
-```bash
-# from repo root
-chmod +x start-dev.sh
-./start-dev.sh
-```
+// Start up the client
+client $ npm start
+`
 
-Note: I cannot run these commands from here. The `start-dev.sh` script (added to the repo) will check basic preconditions and start Docker Compose. Review the script before running.
-
+## Development 
+I developed this as part of the Purdue Launchpad club. The main goal was to gain some experience with the MERN stack.
+I aim to continue making such web applications as I learn more.
