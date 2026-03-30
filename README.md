@@ -7,6 +7,7 @@
 BoilerFrame was built as an end-to-end engineering project focused on a practical computer vision workflow: helping a user locate a specific person inside a longer video with minimal manual review.
 
 The project combined:
+
 - a React frontend for upload and results
 - an Express API for ingestion and job creation
 - a background worker for asynchronous processing
@@ -15,13 +16,23 @@ The project combined:
 
 Beyond the product itself, BoilerFrame was also an experiment in modern AI-assisted development. It was built to explore how tools like Codex and Cursor can accelerate implementation, while reinforcing that strong engineering fundamentals are still what make a system reliable, debuggable, and production-minded.
 
+## Demo
+
+See the product in action below. Click the preview to watch the full demo video.
+
+[![BoilerFrame demo preview](./docs/boilerframe-demo-preview.gif)](https://github.com/rithvikpkx/BoilerFrame/releases/download/v1.0.0/Launchpad.Final.Demo.mp4)
+
+Full video: [BoilerFrame Demo Video](https://github.com/rithvikpkx/BoilerFrame/releases/download/v1.0.0/Launchpad.Final.Demo.mp4)
+
 ## Overview
 
 Users upload:
+
 - one video
 - one or more reference photos of a target person
 
 BoilerFrame then:
+
 1. uploads media to S3
 2. creates and populates an AWS Rekognition face collection
 3. starts an asynchronous face search job on the uploaded video
@@ -42,14 +53,14 @@ This architecture intentionally separates request handling from long-running med
 
 ## Tech Stack
 
-| Layer | Tools |
-| --- | --- |
-| Frontend | React, Axios, Create React App |
-| Backend | Node.js, Express |
-| Data | MongoDB, Mongoose |
-| Cloud | AWS Rekognition, Amazon S3 |
-| Media Processing | `ffmpeg`, `fluent-ffmpeg` |
-| Tooling | Nodemon, dotenv |
+| Layer            | Tools                          |
+| ---------------- | ------------------------------ |
+| Frontend         | React, Axios, Create React App |
+| Backend          | Node.js, Express               |
+| Data             | MongoDB, Mongoose              |
+| Cloud            | AWS Rekognition, Amazon S3     |
+| Media Processing | `ffmpeg`, `fluent-ffmpeg`      |
+| Tooling          | Nodemon, dotenv                |
 
 ## Architecture
 
