@@ -1,29 +1,55 @@
 # BoilerFrame
 
-## Description
-BoilerFrame is a simple webapp that lets users upload a video and photos of a target person, then uses AWS Rekognition to find timestamps and frames where that person appears.
+Detect a target person in uploaded videos using reference photos and AWS Rekognition.
 
-## Running
-Note: For simple testing purposes this can be easily run on localhost. I haven't hosted this on the web.
+## Overview
+BoilerFrame is a full-stack web application that allows users to upload a video and photos of a target individual. The app processes the video and uses AWS Rekognition to identify the timestamps and frames where that person appears.
 
-Files and folders
-- `server/` — Express server and worker
-- `client/` — React frontend
+## Demo
+[Add screenshots or GIF here]
 
-`
-// Start up the server
+## Features
+- Upload videos and reference images
+- Process media asynchronously
+- Detect appearances of a target person
+- Return timestamps and extracted frames
+- Full-stack architecture with separate frontend and backend
 
-server $ npm install && npm run dev
+## Tech Stack
+- Frontend: React
+- Backend: Node.js / Express
+- AI/Cloud: AWS Rekognition
+- Other: Docker, worker jobs, etc.
 
-// Start the worker program to handle search jobs
+## How It Works
+1. User uploads a video and reference images
+2. Backend stores and queues the job
+3. Worker processes frames / segments
+4. AWS Rekognition compares faces
+5. App returns matched frames and timestamps
 
-server $ node worker/processJobs.js
+## Repository Structure
+client/ - frontend  
+server/ - API and worker logic  
+test-data/ - sample files  
 
-// Start up the client
+## Local Setup
+### 1. Clone the repo
+### 2. Install dependencies
+### 3. Configure environment variables
+### 4. Start backend
+### 5. Start worker
+### 6. Start frontend
 
-client $ npm start
-`
+## Environment Variables
+List them clearly here.
 
-## Development 
-I developed this as part of the Purdue Launchpad club. The main goal was to gain some experience with the MERN stack.
-I aim to continue making such web applications as I learn more.
+## Challenges / Lessons Learned
+Talk about building end-to-end, async workflows, AI tool usage, and technical tradeoffs.
+
+## Future Improvements
+- Better UI/UX
+- Cloud deployment
+- Faster video processing
+- Multi-person search
+- Improved result visualization
