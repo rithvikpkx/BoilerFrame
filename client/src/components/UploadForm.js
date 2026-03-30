@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+
 export default function UploadForm({ onStart, onComplete }) {
   const [video, setVideo] = useState(null);
   const [photos, setPhotos] = useState([]);
@@ -20,8 +22,7 @@ export default function UploadForm({ onStart, onComplete }) {
     for (let i = 0; i < photos.length; i++) fd.append('photos', photos[i]);
 
     try {
-      // Use relative path so CRA dev proxy (or same-origin) handles the request
-      const resp = await axios.post('/api/upload', fd, { headers: { 'Content-Type': 'multipart/form-data' } });
+      const resp = await axios.post(`${API_BASE_URL}/api/upload`, fd, { headers: { 'Content-Type': 'multipart/form-data' } });
       // server returns jobId and rekognitionJobId
       const jobId = resp.data.jobId;
       if (!jobId) {

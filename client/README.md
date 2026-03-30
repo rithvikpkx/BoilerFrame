@@ -11,4 +11,10 @@ npm install
 npm start
 ```
 
-The client expects the server to be available at `/api/upload` on the same origin in development use a proxy or run the server on port 4000 and configure a proxy in `package.json` if needed.
+By default the client calls the API at `http://localhost:4000`.
+
+If your server runs elsewhere, set `REACT_APP_API_URL` before starting:
+
+```bash
+REACT_APP_API_URL=http://localhost:4000 npm start
+```

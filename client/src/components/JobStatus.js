@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+
 export default function JobStatus({ jobId, onComplete, onBack }) {
   const [status, setStatus] = useState('started');
   const [results, setResults] = useState([]);
@@ -23,7 +25,7 @@ export default function JobStatus({ jobId, onComplete, onBack }) {
     async function poll() {
       try {
         setAttempts(a => a + 1);
-        const resp = await axios.get(`/api/jobs/${jobId}`);
+        const resp = await axios.get(`${API_BASE_URL}/api/jobs/${jobId}`);
         if (!mounted.current) return;
         const data = resp.data;
         setStatus(data.status);
